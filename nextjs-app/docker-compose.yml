@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - my_network
+
+  cron:
+    image: alpine/curl
+    command: >
+      sh -c "
+        echo '*/10 * * * * curl -X POST http://web:3000/db/clear' > /etc/crontabs/root && \
+        crond -f -l 2
+      "
+    depends_on:
+      - web
+    restart: unless-stopped
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    name: my_network
+    driver: bridge
