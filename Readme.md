@@ -164,14 +164,14 @@ NODE_ENV=production
 
 Add additional environment variables as needed for your application.
 
-## = Security Considerations
+## = Security Considerations
 
 - The script automatically removes GitHub tokens from git configuration
 - Nginx includes rate limiting (10 requests/second)
 - Docker containers run with restart policies
 - Consider setting up UFW firewall for additional security
 
-## > Credits
+## > Credits
 
 This deployment setup is derived from the excellent work by **@leerob**:
 
